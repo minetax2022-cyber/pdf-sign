@@ -51,12 +51,13 @@ export default function FooterInfo({ activeTool, setActiveTool }) {
         <div className="border-t border-slate-200 dark:border-slate-800 pt-10 mb-8">
           <h4 className="font-extrabold text-base text-slate-900 dark:text-white mb-4 flex items-center gap-2">
             <Layers className="w-5 h-5 text-indigo-500" />
-            <span>마인 간편 PDF 주요 기능 모음</span>
+            <span>마인 간편PDF / 전자서명 주요 기능 모음</span>
           </h4>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {[
               { id: 'sign', name: 'PDF 서명', icon: '✍️' },
+              { id: 'stamp', name: '도장 만들기', icon: '💮' },
               { id: 'merge', name: 'PDF 합치기', icon: '🧩' },
               { id: 'split', name: 'PDF 분할', icon: '✂️' },
               { id: 'imageToPdf', name: '이미지 ➡️ PDF', icon: '🖼️' },
@@ -84,7 +85,7 @@ export default function FooterInfo({ activeTool, setActiveTool }) {
         {/* Copyright */}
         <div className="border-t border-slate-200 dark:border-slate-800 pt-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
           <div>
-            © 2026 마인 간편 PDF. 모든 서비스는 100% 무료로 제공됩니다.
+            © 2026 마인 간편PDF / 전자서명. 모든 서비스는 100% 무료로 제공됩니다.
           </div>
           <div className="flex gap-4">
             <a href="#privacy" className="hover:underline">개인정보처리방침</a>

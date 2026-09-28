@@ -10,6 +10,7 @@ import {
   Palette,
   Sparkles
 } from 'lucide-react';
+import StampGeneratorStep from './StampGeneratorStep';
 
 export default function SignatureModal({ isOpen, onClose, onSaveSignature }) {
   const sigCanvasRef = useRef(null);
@@ -126,6 +127,7 @@ export default function SignatureModal({ isOpen, onClose, onSaveSignature }) {
           {[
             { id: 'draw', label: '그리기', icon: PenTool },
             { id: 'type', label: '텍스트 서명', icon: Type },
+            { id: 'stamp', label: '도장 만들기', icon: Sparkles },
             { id: 'upload', label: '이미지 업로드', icon: ImageIcon }
           ].map((tab) => {
             const Icon = tab.icon;
@@ -134,9 +136,9 @@ export default function SignatureModal({ isOpen, onClose, onSaveSignature }) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs sm:text-sm font-bold transition ${
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-lg text-xs sm:text-sm font-bold transition ${
                   isActive
-                    ? 'bg-white dark:bg-slate-900 text-orange-600 dark:text-orange-400 shadow-sm'
+                    ? 'bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
@@ -295,7 +297,22 @@ export default function SignatureModal({ isOpen, onClose, onSaveSignature }) {
             </div>
           )}
 
-          {/* TAB 3: UPLOAD IMAGE */}
+          {/* TAB 3: STAMP GENERATOR */}
+          {activeTab === 'stamp' && (
+            <div className="space-y-4">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                아래에서 성명/회사명을 입력하고 원하는 도장 스타일의 [서명에 사용] 버튼을 클릭하세요.
+              </p>
+              <StampGeneratorStep 
+                onSelectStampForSign={(dataUrl) => {
+                  onSaveSignature(dataUrl);
+                  onClose();
+                }}
+              />
+            </div>
+          )}
+
+          {/* TAB 4: UPLOAD IMAGE */}
           {activeTab === 'upload' && (
             <div className="space-y-4">
               <label className="block text-xs font-bold text-gray-700 dark:text-gray-300">

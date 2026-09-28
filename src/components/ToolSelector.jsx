@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
   FileSignature, 
+  Stamp,
   FilePlus, 
   Scissors, 
   Image as ImageIcon, 
@@ -23,6 +24,18 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
       borderColor: 'border-blue-500/30 hover:border-blue-500',
       iconColor: 'bg-blue-600 text-white',
       tag: '인기 1위'
+    },
+    {
+      id: 'stamp',
+      title: '도장 만들기',
+      desc: '개인 도장(타원/사각/원형), 법인 대표이사 인영, 직인 도장을 빠르게 생성합니다.',
+      icon: Stamp,
+      badge: '신규 강추',
+      badgeColor: 'bg-rose-500 text-white',
+      gradient: 'from-rose-500/10 via-amber-500/5 to-transparent',
+      borderColor: 'border-rose-500/30 hover:border-rose-500',
+      iconColor: 'bg-rose-600 text-white',
+      tag: '투명 PNG'
     },
     {
       id: 'merge',
@@ -50,7 +63,7 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
     },
     {
       id: 'imageToPdf',
-      title: '이미지 ➡️ PDF 변환',
+      title: '이미지 ➡️ PDF',
       desc: 'JPG, PNG, WEBP 등의 여러 이미지 파일을 하나의 고품질 PDF로 변환합니다.',
       icon: ImageIcon,
       badge: '빠른 변환',
@@ -62,10 +75,10 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
     },
     {
       id: 'pageNumber',
-      title: '페이지 번호 매기기',
+      title: '페이지 번호',
       desc: 'PDF 각 페이지 상단/하단 원하는 위치에 자동으로 페이지 번호를 삽입합니다.',
       icon: Hash,
-      badge: '신규',
+      badge: '자동 넘버',
       badgeColor: 'bg-amber-500 text-white',
       gradient: 'from-amber-500/10 via-orange-500/5 to-transparent',
       borderColor: 'border-amber-500/30 hover:border-amber-500',
@@ -80,23 +93,23 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
       <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
         <div className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
           <Sparkles className="w-4 h-4 text-indigo-500 animate-pulse" />
-          <span>마인 간편 PDF — 100% 무료 & 서버 전송 없는 로컬 암호화</span>
+          <span>마인 간편PDF / 전자서명 — 100% 무료 & 보안 솔루션</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
           필요한 PDF 도구를 선택하세요
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg font-medium">
-          전자서명부터 파일 합치기, 페이지 분할, 이미지 변환까지 한곳에서 간편하게 처리하세요.
+          전자서명, 도장 만들기부터 파일 합치기, 페이지 분할, 이미지 변환까지 한곳에서 간편하게 처리하세요.
         </p>
 
         {/* Feature Check badges */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
           {[
-            '무료 제한 없음',
-            '서버 저장 안함 (100% 안전)',
-            '초스피드 엔진',
-            '설치 필요 없음'
+            '무료 도장 생성',
+            '전자서명 & 도장 다운로드',
+            '100% 로컬 보안',
+            '초스피드 엔진'
           ].map((item, idx) => (
             <div key={idx} className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800/60">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
@@ -107,7 +120,7 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
       </div>
 
       {/* Grid of Tool Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3.5">
         {tools.map((tool) => {
           const Icon = tool.icon;
           const isSelected = activeTool === tool.id;

@@ -3,6 +3,7 @@ import Header from './components/Header';
 import ToolSelector from './components/ToolSelector';
 import UploadStep from './components/UploadStep';
 import SignatureStep from './components/SignatureStep';
+import StampGeneratorStep from './components/StampGeneratorStep';
 import MergeStep from './components/MergeStep';
 import SplitStep from './components/SplitStep';
 import ImageToPdfStep from './components/ImageToPdfStep';
@@ -11,7 +12,7 @@ import FooterInfo from './components/FooterInfo';
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [activeTool, setActiveTool] = useState('sign'); // 'sign' | 'merge' | 'split' | 'imageToPdf' | 'pageNumber'
+  const [activeTool, setActiveTool] = useState('sign'); // 'sign' | 'stamp' | 'merge' | 'split' | 'imageToPdf' | 'pageNumber'
   const [selectedFile, setSelectedFile] = useState(null);
 
   // Sync dark mode class on <html>
@@ -66,6 +67,7 @@ export default function App() {
             )
           )}
 
+          {activeTool === 'stamp' && <StampGeneratorStep />}
           {activeTool === 'merge' && <MergeStep />}
           {activeTool === 'split' && <SplitStep />}
           {activeTool === 'imageToPdf' && <ImageToPdfStep />}
@@ -83,4 +85,5 @@ export default function App() {
     </div>
   );
 }
+
 
