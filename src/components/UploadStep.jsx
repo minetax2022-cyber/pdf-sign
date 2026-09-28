@@ -36,11 +36,11 @@ export default function UploadStep({ onFileSelect }) {
       
       {/* Title Area */}
       <div className="text-center max-w-3xl mb-8 space-y-3">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
-          PDF 서명
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed font-medium">
-          프린터나 스캐너 없이 사인을 그리거나 업로드하거나 촬영하여 계약서, 신청서, 양식에 전자 방식으로 사인하세요
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+          PDF 서명 및 전자계약
+        </h2>
+        <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed font-medium">
+          프린터나 스캐너 없이 사인을 그리거나 이미지 서명/도장을 올려 계약서, 신청서, 양식에 즉시 서명하세요
         </p>
 
         {/* Check Points */}
