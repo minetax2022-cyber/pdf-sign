@@ -13,22 +13,22 @@ import {
 } from 'lucide-react';
 
 export default function StampGeneratorStep({ onSelectStampForSign }) {
-  const [stampType, setStampType] = useState('personal'); // 'personal' | 'corporate'
+  const [stampType, setStampType] = useState('corporate'); // 'corporate' | 'personal'
+  const [corpShapeFilter, setCorpShapeFilter] = useState('circle'); // 'circle' | 'square' | 'all'
   const [personalShapeFilter, setPersonalShapeFilter] = useState('all'); // 'all' | 'oval' | 'circle' | 'square'
-  const [corpShapeFilter, setCorpShapeFilter] = useState('all'); // 'all' | 'square' | 'circle'
   
   // Inputs
   const [nameInput, setNameInput] = useState('배종호');
-  const [corpNameInput, setCorpNameInput] = useState('마인오피스');
-  const [corpCenterText, setCorpCenterText] = useState('대표이사'); // '대표이사' | '代表理事' | '직인' | '인'
+  const [corpNameInput, setCorpNameInput] = useState('주식회사 마인오피스');
+  const [corpCenterText, setCorpCenterText] = useState('代表理事'); // '代表理事' | '대표이사' | '직인' | '인'
   const [stampColor, setStampColor] = useState('#cc1e1e'); // Red seal color
 
   // 6 Font Styles List:
   const fontStylesList = [
-    { fontKey: 'jeonseo', fontName: '전서체', desc: '전통 전서체 (연결 기하학 미로 인장선)', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.25 },
-    { fontKey: 'inseo', fontName: '인서체', desc: '정방형 인서체 (꽉 찬 굵은 직인선)', fontCss: 'Batang, 바탕체, serif', stretch: 1.35 },
-    { fontKey: 'haeseo', fontName: '해서체', desc: '정갈한 해서체 (명조 기반 서체)', fontCss: 'NanumMyeongjo, BatangChe, serif', stretch: 1.0 },
-    { fontKey: 'goin', fontName: '고인체', desc: '두터운 고인체 (묵직한 사각형 고인인)', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.4 },
+    { fontKey: 'jeonseo', fontName: '전서체', desc: '전통 전서체 (연결 기하학 인장선)', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.25 },
+    { fontKey: 'inseo', fontName: '인서체', desc: '정방형 인서체 (굵은 직인선)', fontCss: 'Batang, 바탕체, serif', stretch: 1.35 },
+    { fontKey: 'haeseo', fontName: '해서체', desc: '정갈한 해서체 (명조 서체)', fontCss: 'NanumMyeongjo, BatangChe, serif', stretch: 1.0 },
+    { fontKey: 'goin', fontName: '고인체', desc: '두터운 고인체 (묵직한 사각형 인장)', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.4 },
     { fontKey: 'yeseo', fontName: '예서체', desc: '횡선 강조 예서체 (세련된 서체)', fontCss: 'Malgun Gothic, 맑은 고딕, sans-serif', stretch: 1.1 },
     { fontKey: 'hunmin', fontName: '훈민정음체', desc: '훈민정음 원문체 (기하학적 목판본)', fontCss: 'Pretendard, Gothic, sans-serif', stretch: 1.05 }
   ];
@@ -36,25 +36,24 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
   // Personal Templates: half '이름만' (3-char), half ''인' 포함' (4-char)
   const allPersonalTemplates = [
     // 🥚 타원형 (Oval)
-    { id: 'p_oval_name_1', name: '타원형 [전서체 - 이름만]', shape: 'oval', appendIn: false, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름만 표기 (배종호)' },
+    { id: 'p_oval_name_1', name: '타원형 [전서체 - 이름만]', shape: 'oval', appendIn: false, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름 3자 표기 (배종호)' },
     { id: 'p_oval_in_1', name: '타원형 [전서체 - 인 포함]', shape: 'oval', appendIn: true, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름+인 4자 (배종호인)' },
-    { id: 'p_oval_name_2', name: '타원형 [인서체 - 이름만]', shape: 'oval', appendIn: false, fontName: '인서체', fontCss: 'Batang, 바탕체, serif', stretch: 1.3, desc: '이름만 표기 (배종호)' },
+    { id: 'p_oval_name_2', name: '타원형 [인서체 - 이름만]', shape: 'oval', appendIn: false, fontName: '인서체', fontCss: 'Batang, 바탕체, serif', stretch: 1.3, desc: '이름 3자 표기 (배종호)' },
     { id: 'p_oval_in_2', name: '타원형 [인서체 - 인 포함]', shape: 'oval', appendIn: true, fontName: '인서체', fontCss: 'Batang, 바탕체, serif', stretch: 1.3, desc: '이름+인 4자 (배종호인)' },
 
     // 🔳 네모/정사각형 (Square)
-    { id: 'p_sq_name_1', name: '정사각형 [전서체 - 이름만]', shape: 'square', appendIn: false, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름만 수직배치 (배종호)' },
+    { id: 'p_sq_name_1', name: '정사각형 [전서체 - 이름만]', shape: 'square', appendIn: false, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름 3자 수직배치 (배종호)' },
     { id: 'p_sq_in_1', name: '정사각형 [전서체 - 인 포함]', shape: 'square', appendIn: true, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름+인 2x2격자 (배종호인)' },
-    { id: 'p_sq_name_2', name: '정사각형 [인서체 - 이름만]', shape: 'square', appendIn: false, fontName: '인서체', fontCss: 'Batang, 바탕체, serif', stretch: 1.3, desc: '이름만 수직배치 (배종호)' },
+    { id: 'p_sq_name_2', name: '정사각형 [인서체 - 이름만]', shape: 'square', appendIn: false, fontName: '인서체', fontCss: 'Batang, 바탕체, serif', stretch: 1.3, desc: '이름 3자 수직배치 (배종호)' },
     { id: 'p_sq_in_2', name: '정사각형 [인서체 - 인 포함]', shape: 'square', appendIn: true, fontName: '인서체', fontCss: 'Batang, 바탕체, serif', stretch: 1.3, desc: '이름+인 2x2격자 (배종호인)' },
 
     // ⭕ 둥근 원형 (Circle)
-    { id: 'p_circ_name_1', name: '원형 [전서체 - 이름만]', shape: 'circle', appendIn: false, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름만 수직배치 (배종호)' },
+    { id: 'p_circ_name_1', name: '원형 [전서체 - 이름만]', shape: 'circle', appendIn: false, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름 3자 수직배치 (배종호)' },
     { id: 'p_circ_in_1', name: '원형 [전서체 - 인 포함]', shape: 'circle', appendIn: true, fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.2, desc: '이름+인 2x2격자 (배종호인)' },
-    { id: 'p_circ_name_2', name: '원형 [해서체 - 이름만]', shape: 'circle', appendIn: false, fontName: '해서체', fontCss: 'NanumMyeongjo, BatangChe, serif', stretch: 1.0, desc: '이름만 수직배치 (배종호)' },
+    { id: 'p_circ_name_2', name: '원형 [해서체 - 이름만]', shape: 'circle', appendIn: false, fontName: '해서체', fontCss: 'NanumMyeongjo, BatangChe, serif', stretch: 1.0, desc: '이름 3자 수직배치 (배종호)' },
     { id: 'p_circ_in_2', name: '원형 [고인체 - 인 포함]', shape: 'circle', appendIn: true, fontName: '고인체', fontCss: 'Gungsuh, 궁서체, serif', stretch: 1.35, desc: '이름+인 2x2격자 (배종호인)' }
   ];
 
-  // Filter personal templates by shape
   let personalTemplates = [];
   if (personalShapeFilter === 'all') {
     personalTemplates = allPersonalTemplates;
@@ -62,7 +61,16 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
     personalTemplates = allPersonalTemplates.filter((t) => t.shape === personalShapeFilter);
   }
 
-  // Corporate Templates
+  // Corporate Templates (Circular Representative Seals matching exact attached screenshot + Square Seals)
+  const corporateCircleTemplates = [
+    { id: 'corp_c_1', name: '법인 원형 대표인 [한자 代表理事 / 점 ●]', shape: 'corp_circle', symbol: '●', center: '代表理事', fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', desc: '전통 법인 대표인 (한자 代表理事)' },
+    { id: 'corp_c_2', name: '법인 원형 대표인 [한글 대표이사 / 점 ●]', shape: 'corp_circle', symbol: '●', center: '대표이사', fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif', desc: '한글 법인 대표인 (대표이사)' },
+    { id: 'corp_c_3', name: '법인 원형 대표인 [한자 代表理事 / 별 ★]', shape: 'corp_circle', symbol: '★', center: '代表理事', fontName: '인서체', fontCss: 'Batang, 바탕체, serif', desc: '별 장식 한자 대표인 (代表理事)' },
+    { id: 'corp_c_4', name: '법인 원형 대표인 [한글 대표이사 / 별 ★]', shape: 'corp_circle', symbol: '★', center: '대표이사', fontName: '인서체', fontCss: 'Batang, 바탕체, serif', desc: '별 장식 한글 대표인 (대표이사)' },
+    { id: 'corp_c_5', name: '법인 원형 대표인 [해서체 / 점 ●]', shape: 'corp_circle', symbol: '●', center: '代表理事', fontName: '해서체', fontCss: 'NanumMyeongjo, BatangChe, serif', desc: '정갈한 해서체 한자 대표인' },
+    { id: 'corp_c_6', name: '법인 원형 대표인 [고인체 / 점 ●]', shape: 'corp_circle', symbol: '●', center: '代表理事', fontName: '고인체', fontCss: 'Gungsuh, 궁서체, serif', desc: '묵직한 고인체 한자 대표인' }
+  ];
+
   const corporateSquareTemplates = fontStylesList.map((f) => ({
     id: `corp_sq_${f.fontKey}`,
     name: `법인 사각 직인 [${f.fontName}]`,
@@ -74,20 +82,13 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
     desc: f.desc
   }));
 
-  const corporateCircleTemplates = [
-    { id: 'corp_circle_star_hangeul', name: '법인 대표인 (한글 / 별 ★)', shape: 'corp_circle', symbol: '★', center: '대표이사', fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif' },
-    { id: 'corp_circle_star_hanja', name: '법인 대표인 (한자 代表理事 / 별 ★)', shape: 'corp_circle', symbol: '★', center: '代表理事', fontName: '전서체', fontCss: 'Gungsuh, 궁서체, serif' },
-    { id: 'corp_circle_dot_hangeul', name: '법인 대표인 (한글 / 점 ●)', shape: 'corp_circle', symbol: '●', center: '대표이사', fontName: '인서체', fontCss: 'Batang, 바탕체, serif' },
-    { id: 'corp_circle_dot_hanja', name: '법인 대표인 (한자 代表理事 / 점 ●)', shape: 'corp_circle', symbol: '●', center: '代表理事', fontName: '인서체', fontCss: 'Batang, 바탕체, serif' }
-  ];
-
   let corporateTemplates = [];
-  if (corpShapeFilter === 'square') {
-    corporateTemplates = corporateSquareTemplates;
-  } else if (corpShapeFilter === 'circle') {
+  if (corpShapeFilter === 'circle') {
     corporateTemplates = corporateCircleTemplates;
+  } else if (corpShapeFilter === 'square') {
+    corporateTemplates = corporateSquareTemplates;
   } else {
-    corporateTemplates = [...corporateSquareTemplates, ...corporateCircleTemplates];
+    corporateTemplates = [...corporateCircleTemplates, ...corporateSquareTemplates];
   }
 
   const templates = stampType === 'personal' ? personalTemplates : corporateTemplates;
@@ -114,7 +115,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
     const fontName = tpl.fontCss || 'Gungsuh, 궁서체, serif';
     const stretchRatio = tpl.stretch || 1.1;
 
-    // Build text based on tpl.appendIn rule
     let text = rawText.trim();
     if (tpl.appendIn && !text.endsWith('인')) {
       text += '인';
@@ -139,7 +139,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
       ctx.textBaseline = 'middle';
 
       if (text.length <= 3) {
-        // Vertical 3-character layout (e.g. 배 종 호)
         const fontSize = 42;
         ctx.font = `900 ${fontSize}px ${fontName}`;
         const spacing = 50;
@@ -153,7 +152,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
           ctx.restore();
         }
       } else {
-        // 4-character 2x2 grid layout (e.g. 배종호인)
         const fontSize = 36;
         ctx.font = `900 ${fontSize}px ${fontName}`;
         const pos = [
@@ -188,7 +186,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
       ctx.textBaseline = 'middle';
 
       if (text.length <= 3) {
-        // Vertical 3-character layout in square seal (e.g. 배 종 호)
         const fontSize = 44;
         ctx.font = `900 ${fontSize}px ${fontName}`;
         const spacing = 48;
@@ -201,7 +198,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
           ctx.restore();
         }
       } else if (text.length <= 4) {
-        // 4-character 2x2 Grid (배종호인)
         const fontSize = 44;
         ctx.font = `900 ${fontSize}px ${fontName}`;
         const positions = [
@@ -220,7 +216,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
           ctx.restore();
         });
       } else {
-        // Multi-character corporate layout (마인오피스인 -> 2 cols)
         const fontSize = 32;
         ctx.font = `900 ${fontSize}px ${fontName}`;
         const half = Math.ceil(text.length / 2);
@@ -261,7 +256,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
       ctx.textBaseline = 'middle';
 
       if (text.length <= 3) {
-        // Vertical 3-character layout (배 종 호)
         const fontSize = 40;
         ctx.font = `900 ${fontSize}px ${fontName}`;
         const spacing = 45;
@@ -274,7 +268,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
           ctx.restore();
         }
       } else {
-        // 4-character 2x2 Grid (배종호인)
         const fontSize = 36;
         ctx.font = `900 ${fontSize}px ${fontName}`;
         const positions = [
@@ -294,63 +287,88 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
       }
 
     } else if (tpl.shape === 'corp_circle') {
-      // Corporate Circular Stamp (Outer Ring + Inner Center Title)
-      const outerRadius = 88;
-      const innerRadius = 42;
+      // Corporate Circular Representative Seal (Exact format of user attached screenshot)
+      const outerRadius = 95;
+      const innerRadius = 50;
 
-      ctx.lineWidth = 5;
+      // Outer Circle Frame (Double Border)
+      ctx.lineWidth = 5.5;
       ctx.beginPath();
       ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, outerRadius - 3.5, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, outerRadius - 4, 0, Math.PI * 2);
       ctx.stroke();
 
-      ctx.lineWidth = 2.5;
+      // Inner Circle Frame
+      ctx.lineWidth = 2.8;
       ctx.beginPath();
       ctx.arc(centerX, centerY, innerRadius, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Symbol at top
-      ctx.font = `bold 14px ${fontName}`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(tpl.symbol || '★', centerX, centerY - outerRadius + 14);
+      // Top Symbol (Filled Dot ● or Star ★ at 12 o'clock)
+      const symbolChar = tpl.symbol || '●';
+      if (symbolChar === '●') {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY - outerRadius + 16, 5.5, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.font = `bold 16px ${fontName}`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(symbolChar, centerX, centerY - outerRadius + 16);
+      }
 
-      // Arc Corporate Name along outer ring
-      const corpText = corpNameInput.trim() || '마인오피스';
+      // Outer Ring Arc Text for Corporate Name (e.g. 주식회사 마인오피스)
+      const corpText = corpNameInput.trim() || '주식회사 마인오피스';
       const numChars = corpText.length;
-      const angleStep = Math.PI / Math.max(numChars + 1, 6);
+      const angleStep = Math.PI / Math.max(numChars + 1.2, 7);
       const startAngle = -Math.PI / 2 - ((numChars - 1) * angleStep) / 2;
 
-      ctx.font = `bold 16px ${fontName}`;
+      ctx.font = `900 18px ${fontName}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
       for (let i = 0; i < numChars; i++) {
         const angle = startAngle + i * angleStep;
-        const charRadius = outerRadius - 18;
+        const charRadius = outerRadius - 20;
         const x = centerX + charRadius * Math.cos(angle);
         const y = centerY + charRadius * Math.sin(angle);
 
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(angle + Math.PI / 2);
+        ctx.scale(1.05, 1.15);
         ctx.fillText(corpText[i], 0, 0);
         ctx.restore();
       }
 
-      // Center Title (대표이사 / 代表理事)
-      const centerTitle = tpl.center || corpCenterText || '대표이사';
-      ctx.font = `900 20px ${fontName}`;
+      // Center Title Grid (代表理事 or 대표이사)
+      const centerTitle = tpl.center || corpCenterText || '代表理事';
+      ctx.font = `900 24px ${fontName}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
 
-      if (centerTitle.length <= 2) {
-        ctx.fillText(centerTitle, centerX, centerY);
+      if (centerTitle.length === 4) {
+        // Traditional Seal Order: Right Col (0=代, 1=表), Left Col (2=理, 3=事) or (0=대, 1=표, 2=이, 3=사)
+        const pos = [
+          { x: centerX + 18, y: centerY - 18, char: centerTitle[0] },
+          { x: centerX + 18, y: centerY + 18, char: centerTitle[1] },
+          { x: centerX - 18, y: centerY - 18, char: centerTitle[2] },
+          { x: centerX - 18, y: centerY + 18, char: centerTitle[3] }
+        ];
+
+        pos.forEach((p) => {
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.scale(1.08, 1.15);
+          ctx.fillText(p.char, 0, 0);
+          ctx.restore();
+        });
       } else {
-        ctx.font = `900 17px ${fontName}`;
-        ctx.fillText(centerTitle[0] || '', centerX - 12, centerY - 12);
-        ctx.fillText(centerTitle[1] || '', centerX + 12, centerY - 12);
-        ctx.fillText(centerTitle[2] || '', centerX - 12, centerY + 12);
-        ctx.fillText(centerTitle[3] || '', centerX + 12, centerY + 12);
+        ctx.fillText(centerTitle, centerX, centerY);
       }
     }
   };
@@ -387,34 +405,22 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
       <div className="text-center max-w-2xl mx-auto mb-6 space-y-2">
         <div className="inline-flex items-center gap-2 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
           <Stamp className="w-4 h-4 text-rose-500" />
-          <span>마인 간편PDF / 전자서명 — 무료 무제한 전자 도장 생성기</span>
+          <span>마인 간편PDF / 전자서명 — 정통 법인 대표인 & 서체별 도장 생성기</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
           무료 전자 도장 만들기
         </h2>
         <p className="text-slate-600 dark:text-slate-300 text-sm font-medium">
-          개인 도장(이름만 / 인포함 공존) 및 법인 사각 직인(6대 전통 서체), 대표인 도장을 한눈에 확인하세요.
+          첨부 이미지 규격의 법인 원형 대표인(한자 代表理事 / 한글 대표이사) 및 사각 직인을 즉시 생성합니다.
         </p>
       </div>
 
       {/* Main Control Panel */}
       <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700/80 p-6 sm:p-8 shadow-xl space-y-8">
         
-        {/* Type Switcher: 개인 도장 vs 법인/회사 도장 */}
+        {/* Type Switcher: 법인/회사 도장 vs 개인 도장 */}
         <div className="flex justify-center">
           <div className="inline-flex bg-slate-100 dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-inner">
-            <button
-              onClick={() => setStampType('personal')}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-extrabold transition ${
-                stampType === 'personal'
-                  ? 'bg-white dark:bg-slate-800 text-rose-600 dark:text-rose-400 shadow-md border border-slate-200 dark:border-slate-700'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              <User className="w-4 h-4" />
-              <span>개인 도장 (이름만 / 인 포함 다양화)</span>
-            </button>
-
             <button
               onClick={() => setStampType('corporate')}
               className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-extrabold transition ${
@@ -424,7 +430,19 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
               }`}
             >
               <Building2 className="w-4 h-4" />
-              <span>법인 / 회사 도장 (6대 서체 직인)</span>
+              <span>법인 / 회사 도장 (정통 원형 대표인 & 직인)</span>
+            </button>
+
+            <button
+              onClick={() => setStampType('personal')}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-extrabold transition ${
+                stampType === 'personal'
+                  ? 'bg-white dark:bg-slate-800 text-rose-600 dark:text-rose-400 shadow-md border border-slate-200 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <User className="w-4 h-4" />
+              <span>개인 도장 (이름만 & 인 포함)</span>
             </button>
           </div>
         </div>
@@ -432,7 +450,39 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
         {/* Dynamic Inputs Bar */}
         <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-700/80 grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
           
-          {stampType === 'personal' ? (
+          {stampType === 'corporate' ? (
+            <>
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  회사/법인명 입력:
+                </label>
+                <input
+                  type="text"
+                  value={corpNameInput}
+                  onChange={(e) => setCorpNameInput(e.target.value)}
+                  maxLength={16}
+                  placeholder="예: 주식회사 마인오피스 또는 마인오피스"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-extrabold text-base focus:ring-2 focus:ring-rose-500 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  중앙 대표인 표기:
+                </label>
+                <select
+                  value={corpCenterText}
+                  onChange={(e) => setCorpCenterText(e.target.value)}
+                  className="w-full px-3 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs font-bold outline-none"
+                >
+                  <option value="代表理事">代表理事 (한자 정통)</option>
+                  <option value="대표이사">대표이사 (한글)</option>
+                  <option value="직인">직인 (한글)</option>
+                  <option value="인">인 (한글)</option>
+                </select>
+              </div>
+            </>
+          ) : (
             <div className="sm:col-span-2">
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                 성명 입력 (예: 배종호):
@@ -446,38 +496,6 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
                 className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-extrabold text-base focus:ring-2 focus:ring-rose-500 outline-none"
               />
             </div>
-          ) : (
-            <>
-              <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                  회사/법인명 입력:
-                </label>
-                <input
-                  type="text"
-                  value={corpNameInput}
-                  onChange={(e) => setCorpNameInput(e.target.value)}
-                  maxLength={12}
-                  placeholder="예: 마인오피스 또는 (주)마인"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-extrabold text-base focus:ring-2 focus:ring-rose-500 outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                  중앙 대표인 타이틀:
-                </label>
-                <select
-                  value={corpCenterText}
-                  onChange={(e) => setCorpCenterText(e.target.value)}
-                  className="w-full px-3 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs font-bold outline-none"
-                >
-                  <option value="대표이사">대표이사 (한글)</option>
-                  <option value="代表理事">代表理事 (한자)</option>
-                  <option value="직인">직인 (한글)</option>
-                  <option value="인">인 (한글)</option>
-                </select>
-              </div>
-            </>
           )}
 
           {/* Color Selector */}
@@ -512,10 +530,33 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div className="flex items-center gap-2">
             <span className="text-xs font-extrabold text-slate-700 dark:text-slate-300">
-              도장 모양 필터:
+              도장 형태 구분:
             </span>
             <div className="flex gap-1.5">
-              {stampType === 'personal' ? (
+              {stampType === 'corporate' ? (
+                [
+                  { id: 'circle', label: '원형 대표이사 인장 (한자/한글)', icon: Circle },
+                  { id: 'square', label: '정사각형 법인 직인 (6대 서체)', icon: Square },
+                  { id: 'all', label: '전체 보기', icon: Grid }
+                ].map((f) => {
+                  const Icon = f.icon;
+                  const isSelected = corpShapeFilter === f.id;
+                  return (
+                    <button
+                      key={f.id}
+                      onClick={() => setCorpShapeFilter(f.id)}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                        isSelected
+                          ? 'bg-rose-600 text-white shadow-sm'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5" />
+                      <span>{f.label}</span>
+                    </button>
+                  );
+                })
+              ) : (
                 [
                   { id: 'all', label: '전체 보기 (이름만 & 인포함)', icon: Grid },
                   { id: 'oval', label: '타원형 도장', icon: Circle },
@@ -539,35 +580,12 @@ export default function StampGeneratorStep({ onSelectStampForSign }) {
                     </button>
                   );
                 })
-              ) : (
-                [
-                  { id: 'all', label: '전체 보기', icon: Grid },
-                  { id: 'square', label: '정사각형 법인 직인 (6대 서체)', icon: Square },
-                  { id: 'circle', label: '원형 대표이사 인장 (한글/한자)', icon: Circle }
-                ].map((f) => {
-                  const Icon = f.icon;
-                  const isSelected = corpShapeFilter === f.id;
-                  return (
-                    <button
-                      key={f.id}
-                      onClick={() => setCorpShapeFilter(f.id)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
-                        isSelected
-                          ? 'bg-rose-600 text-white shadow-sm'
-                          : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
-                      }`}
-                    >
-                      <Icon className="w-3.5 h-3.5" />
-                      <span>{f.label}</span>
-                    </button>
-                  );
-                })
               )}
             </div>
           </div>
 
           <div className="text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-3 py-1 rounded-full border border-rose-200 dark:border-rose-900">
-            {stampType === 'personal' ? '✨ 이름만 표기(3자) & 인 포함(4자) 동시 제공' : '✨ 6대 한국 전통 서체 완벽 지원'}
+            {stampType === 'corporate' ? '✨ 첨부 이미지 이미지 규격 대표인 100% 동일 구현' : '✨ 이름만 & 인 포함 디자인 구성'}
           </div>
         </div>
 
