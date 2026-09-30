@@ -620,10 +620,25 @@ function StampCard({ tpl, nameText, color, renderFn, onDownload, onUseSign }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    if (canvasRef.current) {
-      renderFn(canvasRef.current, tpl, nameText, color);
+    let active = true;
+    const render = () => {
+      if (canvasRef.current && active) {
+        renderFn(canvasRef.current, tpl, nameText, color);
+      }
+    };
+
+    render();
+
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        if (active) render();
+      });
     }
-  }, [tpl, nameText, color]);
+
+    return () => {
+      active = false;
+    };
+  }, [tpl, nameText, color, renderFn]);
 
   return (
     <div className="rounded-2xl border-2 border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900 p-5 shadow-sm hover:shadow-xl hover:border-rose-400 transition duration-200 flex flex-col items-center justify-between space-y-4 group relative overflow-hidden">

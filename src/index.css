@@ -5,9 +5,7 @@
 @font-face {
   font-family: 'HanJeonseoA';
   src: url('/fonts/hanjeonseo-a.ttf') format('truetype'),
-       url('/fonts/HANJEONSEO-A.TTF') format('truetype'),
-       url('/hanjeonseo-a.ttf') format('truetype'),
-       url('/HANJEONSEO-A.TTF') format('truetype');
+       url('/hanjeonseo-a.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -16,9 +14,7 @@
 @font-face {
   font-family: 'HanJeonseoB';
   src: url('/fonts/hanjeonseo-b.ttf') format('truetype'),
-       url('/fonts/HANJEONSEO-B.TTF') format('truetype'),
-       url('/hanjeonseo-b.ttf') format('truetype'),
-       url('/HANJEONSEO-B.TTF') format('truetype');
+       url('/hanjeonseo-b.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
