@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   FileSignature, 
-  Stamp,
   FilePlus, 
   Scissors, 
   Image as ImageIcon, 
@@ -16,7 +15,7 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
     {
       id: 'sign',
       title: 'PDF 서명',
-      desc: '계약서, 양식 문서에 직접 사인을 그리거나 이미지 서명/도장을 첨부하세요.',
+      desc: '계약서, 양식 문서에 직접 사인을 그리거나 이미지 서명을 첨부하세요.',
       icon: FileSignature,
       badge: '추천',
       badgeColor: 'bg-blue-500 text-white',
@@ -24,18 +23,6 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
       borderColor: 'border-blue-500/30 hover:border-blue-500',
       iconColor: 'bg-blue-600 text-white',
       tag: '인기 1위'
-    },
-    {
-      id: 'stamp',
-      title: '도장 만들기',
-      desc: '개인 도장(타원/사각/원형), 법인 대표이사 인영, 직인 도장을 빠르게 생성합니다.',
-      icon: Stamp,
-      badge: '신규 강추',
-      badgeColor: 'bg-rose-500 text-white',
-      gradient: 'from-rose-500/10 via-amber-500/5 to-transparent',
-      borderColor: 'border-rose-500/30 hover:border-rose-500',
-      iconColor: 'bg-rose-600 text-white',
-      tag: '투명 PNG'
     },
     {
       id: 'merge',
@@ -100,14 +87,14 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
           필요한 PDF 도구를 선택하세요
         </h1>
         <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg font-medium">
-          전자서명, 도장 만들기부터 파일 합치기, 페이지 분할, 이미지 변환까지 한곳에서 간편하게 처리하세요.
+          전자서명부터 파일 합치기, 페이지 분할, 이미지 변환까지 한곳에서 간편하게 처리하세요.
         </p>
 
         {/* Feature Check badges */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
           {[
-            '무료 도장 생성',
-            '전자서명 & 도장 다운로드',
+            '간편 전자서명',
+            'PDF 합성 & 분할',
             '100% 로컬 보안',
             '초스피드 엔진'
           ].map((item, idx) => (
@@ -120,7 +107,7 @@ export default function ToolSelector({ activeTool, setActiveTool }) {
       </div>
 
       {/* Grid of Tool Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {tools.map((tool) => {
           const Icon = tool.icon;
           const isSelected = activeTool === tool.id;

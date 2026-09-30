@@ -7,10 +7,8 @@ import {
   PenTool, 
   Type, 
   Image as ImageIcon,
-  Palette,
-  Sparkles
+  Palette
 } from 'lucide-react';
-import StampGeneratorStep from './StampGeneratorStep';
 
 export default function SignatureModal({ isOpen, onClose, onSaveSignature }) {
   const sigCanvasRef = useRef(null);
@@ -127,7 +125,6 @@ export default function SignatureModal({ isOpen, onClose, onSaveSignature }) {
           {[
             { id: 'draw', label: '그리기', icon: PenTool },
             { id: 'type', label: '텍스트 서명', icon: Type },
-            { id: 'stamp', label: '도장 만들기', icon: Sparkles },
             { id: 'upload', label: '이미지 업로드', icon: ImageIcon }
           ].map((tab) => {
             const Icon = tab.icon;
@@ -297,22 +294,7 @@ export default function SignatureModal({ isOpen, onClose, onSaveSignature }) {
             </div>
           )}
 
-          {/* TAB 3: STAMP GENERATOR */}
-          {activeTab === 'stamp' && (
-            <div className="space-y-4">
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                아래에서 성명/회사명을 입력하고 원하는 도장 스타일의 [서명에 사용] 버튼을 클릭하세요.
-              </p>
-              <StampGeneratorStep 
-                onSelectStampForSign={(dataUrl) => {
-                  onSaveSignature(dataUrl);
-                  onClose();
-                }}
-              />
-            </div>
-          )}
-
-          {/* TAB 4: UPLOAD IMAGE */}
+          {/* TAB 3: UPLOAD IMAGE */}
           {activeTab === 'upload' && (
             <div className="space-y-4">
               <label className="block text-xs font-bold text-gray-700 dark:text-gray-300">

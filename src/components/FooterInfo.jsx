@@ -54,10 +54,9 @@ export default function FooterInfo({ activeTool, setActiveTool }) {
             <span>마인 간편PDF / 전자서명 주요 기능 모음</span>
           </h4>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {[
               { id: 'sign', name: 'PDF 서명', icon: '✍️' },
-              { id: 'stamp', name: '도장 만들기', icon: '💮' },
               { id: 'merge', name: 'PDF 합치기', icon: '🧩' },
               { id: 'split', name: 'PDF 분할', icon: '✂️' },
               { id: 'imageToPdf', name: '이미지 ➡️ PDF', icon: '🖼️' },

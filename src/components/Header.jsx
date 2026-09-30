@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   FileSignature, 
-  Stamp,
   FilePlus, 
   Scissors, 
   Image as ImageIcon, 
@@ -14,7 +13,6 @@ import {
 export default function Header({ activeTool, setActiveTool, darkMode, setDarkMode, resetApp }) {
   const tools = [
     { id: 'sign', name: 'PDF 서명', icon: FileSignature, color: 'text-blue-500' },
-    { id: 'stamp', name: '도장 만들기', icon: Stamp, color: 'text-rose-500' },
     { id: 'merge', name: 'PDF 합치기', icon: FilePlus, color: 'text-indigo-500' },
     { id: 'split', name: 'PDF 분할', icon: Scissors, color: 'text-purple-500' },
     { id: 'imageToPdf', name: '이미지 ➡️ PDF', icon: ImageIcon, color: 'text-emerald-500' },
